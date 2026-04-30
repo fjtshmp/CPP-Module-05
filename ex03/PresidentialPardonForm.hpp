@@ -3,13 +3,19 @@
 
 #include "AForm.hpp"
 
-class PresidentialPardonForm : public AForm
-{
-public:
-    PresidentialPardonForm(std::string target);
-    ~PresidentialPardonForm();
+class PresidentialPardonForm : public AForm {
+private:
+    const std::string _target;
 
-    void executeAction() const;
+public:
+    PresidentialPardonForm();
+    PresidentialPardonForm(const std::string& target);
+    PresidentialPardonForm(const PresidentialPardonForm& other);
+    PresidentialPardonForm& operator=(const PresidentialPardonForm& other);
+    virtual ~PresidentialPardonForm();
+
+protected:
+    virtual void executeAction() const;
 };
 
 #endif

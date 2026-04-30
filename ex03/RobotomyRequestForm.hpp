@@ -3,13 +3,19 @@
 
 #include "AForm.hpp"
 
-class RobotomyRequestForm : public AForm
-{
-public:
-    RobotomyRequestForm(std::string target);
-    ~RobotomyRequestForm();
+class RobotomyRequestForm : public AForm {
+private:
+    const std::string _target;
 
-    void executeAction() const;
+public:
+    RobotomyRequestForm();
+    RobotomyRequestForm(const std::string& target);
+    RobotomyRequestForm(const RobotomyRequestForm& other);
+    RobotomyRequestForm& operator=(const RobotomyRequestForm& other);
+    virtual ~RobotomyRequestForm();
+
+protected:
+    virtual void executeAction() const;
 };
 
 #endif

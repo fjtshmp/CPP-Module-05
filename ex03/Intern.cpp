@@ -5,58 +5,48 @@
 #include <iostream>
 
 Intern::Intern() {}
-
-Intern::Intern(const Intern& other)
-{
-    (void)other;
-}
-
-Intern& Intern::operator=(const Intern& other)
-{
+Intern::Intern(const Intern& other) { (void)other; }
+Intern& Intern::operator=(const Intern& other) {
     (void)other;
     return *this;
 }
-
 Intern::~Intern() {}
 
-AForm* Intern::makeShrubbery(const std::string& target)
-{
+
+AForm* Intern::createShrubbery(const std::string& target) {
     return new ShrubberyCreationForm(target);
 }
 
-AForm* Intern::makeRobotomy(const std::string& target)
-{
+AForm* Intern::createRobotomy(const std::string& target) {
     return new RobotomyRequestForm(target);
 }
 
-AForm* Intern::makePresidential(const std::string& target)
-{
+AForm* Intern::createPresidential(const std::string& target) {
     return new PresidentialPardonForm(target);
 }
 
-AForm* Intern::makeForm(const std::string& formName, const std::string& target)
-{
-    std::string forms[3] = {
+
+AForm* Intern::makeForm(const std::string& formName, const std::string& target) {
+
+    std::string names[3] = {
         "shrubbery creation",
         "robotomy request",
         "presidential pardon"
     };
 
-    AForm* (Intern::*functions[3])(const std::string&) = {
-        &Intern::makeShrubbery,
-        &Intern::makeRobotomy,
-        &Intern::makePresidential
+    AForm* (*functions[3])(const std::string&) = {
+        &Intern::createShrubbery,
+        &Intern::createRobotomy,
+        &Intern::createPresidential
     };
 
-    for (int i = 0; i < 3; i++)
-    {
-        if (formName == forms[i])
-        {
+    for (int i = 0; i < 3; i++) {
+        if (formName == names[i]) {
             std::cout << "Intern creates " << formName << std::endl;
-            return (this->*functions[i])(target);
+            return functions[i](target);
         }
     }
 
-    std::cout << "Error: form \"" << formName << "\" does not exist" << std::endl;
+    std::cerr << "Error: Form \"" << formName << "\" does not exist." << std::endl;
     return NULL;
 }
